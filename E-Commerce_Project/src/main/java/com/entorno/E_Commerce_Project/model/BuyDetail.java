@@ -1,6 +1,7 @@
 package com.entorno.E_Commerce_Project.model;
 
 
+import com.entorno.E_Commerce_Project.ENUM.PayMethod;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,5 @@ public class BuyDetail {
     private String idProduct;
     private String totalPrice;
     private String description;
-    public String payMethod;
+    public PayMethod payMethod;
 }
