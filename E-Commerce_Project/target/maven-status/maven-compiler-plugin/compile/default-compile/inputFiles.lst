@@ -1,6 +1,12 @@
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\controller\NotificationController.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\controller\ProductController.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\controller\QRController.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\controller\UserController.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\DTO\LoginDTO.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\ECommerceProjectApplication.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\ENUM\Role.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\model\BuyDetail.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\model\MailConfig.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\model\Notification.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\model\Product.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\model\QR.java
@@ -12,6 +18,7 @@ C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\mai
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\repository\UserRepository.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\IProductService.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\IUserService.java
+C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\NotificationService.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\ProductService.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\QRService.java
 C:\Users\Cristian\Documents\GitHub\E-Commerce_Project\E-Commerce_Project\src\main\java\com\entorno\E_Commerce_Project\service\UserService.java

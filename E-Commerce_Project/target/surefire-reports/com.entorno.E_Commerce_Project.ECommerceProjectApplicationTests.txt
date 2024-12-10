@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.entorno.E_Commerce_Project.ECommerceProjectApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.865 s -- in com.entorno.E_Commerce_Project.ECommerceProjectApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.430 s -- in com.entorno.E_Commerce_Project.ECommerceProjectApplicationTests
