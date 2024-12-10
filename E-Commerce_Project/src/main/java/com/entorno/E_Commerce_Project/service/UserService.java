@@ -7,6 +7,7 @@ import com.entorno.E_Commerce_Project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,6 +16,11 @@ public class UserService implements IUserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public List<User> listUser() {
+        return userRepository.findAll();
+    }
 
     @Override
     public User ListUsersId(String id) {

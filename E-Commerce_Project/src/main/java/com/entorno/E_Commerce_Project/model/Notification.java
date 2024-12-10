@@ -1,14 +1,10 @@
 package com.entorno.E_Commerce_Project.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "notification")
@@ -21,4 +17,35 @@ public class Notification {
     private String message;
     private String idUser;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdNotification() {
+        return idNotification;
+    }
+
+    public void setIdNotification(String idNotification) {
+        this.idNotification = idNotification;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
 }

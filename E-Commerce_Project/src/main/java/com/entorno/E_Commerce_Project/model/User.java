@@ -2,14 +2,10 @@
 
     import com.entorno.E_Commerce_Project.ENUM.Role;
     import lombok.AllArgsConstructor;
-    import lombok.Getter;
     import lombok.NoArgsConstructor;
-    import lombok.Setter;
     import org.springframework.data.annotation.Id;
     import org.springframework.data.mongodb.core.mapping.Document;
 
-    @Getter
-    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     @Document(collection = "user")
@@ -18,7 +14,6 @@
         @Id
         private String id;
 
-        private String idUser;
         private String username;
         private String password;
         private String email;
@@ -33,13 +28,6 @@
             this.id = id;
         }
 
-        public String getIdUser() {
-            return idUser;
-        }
-
-        public void setIdUser(String idUser) {
-            this.idUser = idUser;
-        }
 
         public String getUsername() {
             return username;
