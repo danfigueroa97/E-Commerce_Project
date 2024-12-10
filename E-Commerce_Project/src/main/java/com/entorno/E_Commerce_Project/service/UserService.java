@@ -1,15 +1,16 @@
 package com.entorno.E_Commerce_Project.service;
 
+import com.entorno.E_Commerce_Project.DTO.LoginDTO;
+import com.entorno.E_Commerce_Project.ENUM.Role;
 import com.entorno.E_Commerce_Project.model.User;
 import com.entorno.E_Commerce_Project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class UserService implements IUserService{
 
     @Autowired
@@ -22,6 +23,9 @@ public class UserService implements IUserService{
 
     @Override
     public User CreateUser(User user) {
+        if (user.getRole() == null) {
+            user.setRole(Role.USER);
+        }
         return userRepository.save(user);
     }
 
@@ -35,7 +39,8 @@ public class UserService implements IUserService{
             userUpdate.setUsername(user.getUsername());
             userUpdate.setPassword(user.getPassword());
             userUpdate.setEmail(user.getEmail());
-            userUpdate.setAddress(userUpdate.getAddress());
+            userUpdate.setAddress(user.getAddress());
+            userUpdate.setRole(user.getRole());
 
             return userRepository.save(userUpdate);
         } else {
@@ -49,6 +54,26 @@ public class UserService implements IUserService{
             userRepository.deleteById(id);
         } else {
             throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    @Override
+    public User LoginUser(LoginDTO loginDTO) {
+        String usermane = loginDTO.getUsername();
+        String password = loginDTO.getPassword();
+        Role role = loginDTO.getRole();
+
+        Optional<User> userOptional = userRepository.findByusername(usermane);
+
+        if (userOptional.isPresent()){
+            User user = userOptional.get();
+            if (user.getRole() == role && Objects.equals(user.getPassword(), password)){
+                return user;
+            } else {
+                throw new IllegalArgumentException("Incorrect role or password");
+            }
+        } else {
+            throw new IllegalArgumentException("Incorrect username");
         }
     }
 }

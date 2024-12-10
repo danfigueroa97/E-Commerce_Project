@@ -1,5 +1,6 @@
 package com.entorno.E_Commerce_Project.controller;
 
+import com.entorno.E_Commerce_Project.DTO.LoginDTO;
 import com.entorno.E_Commerce_Project.model.User;
 import com.entorno.E_Commerce_Project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class UserController {
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            User user = userService.LoginUser(loginDTO);
+            return ResponseEntity.ok(user);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 

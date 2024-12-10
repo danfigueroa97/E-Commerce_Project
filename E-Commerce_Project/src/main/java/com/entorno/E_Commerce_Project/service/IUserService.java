@@ -1,5 +1,6 @@
 package com.entorno.E_Commerce_Project.service;
 
+import com.entorno.E_Commerce_Project.DTO.LoginDTO;
 import com.entorno.E_Commerce_Project.model.User;
 
 import java.util.List;
@@ -17,5 +18,8 @@ public interface IUserService {
 
     //Delete
     void DeleteUser(String id);
+
+    //Login
+    User LoginUser(LoginDTO loginDTO);
 
 }

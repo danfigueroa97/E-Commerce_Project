@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "qrcode")
+@Document(collection = "qrcode")
 public class QRCode {
 
     @Id
