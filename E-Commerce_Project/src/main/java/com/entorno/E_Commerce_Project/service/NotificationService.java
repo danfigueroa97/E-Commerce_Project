@@ -32,5 +32,7 @@ public class NotificationService {
         email.setSubject("Nueva Notificación");
         email.setText(message);
         javaMailSender.send(email);
+        // Muestra en consola que el correo fue enviado correctamente
+        System.out.println("Correo electrónico enviado correctamente a " + userId);
     }
 }
