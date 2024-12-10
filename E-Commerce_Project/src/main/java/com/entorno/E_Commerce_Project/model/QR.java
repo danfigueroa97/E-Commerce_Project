@@ -12,11 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "qrcode")
-<<<<<<< Updated upstream:E-Commerce_Project/src/main/java/com/entorno/E_Commerce_Project/model/QRCode.java
-public class QRCode {
-=======
+
 public class QR {
->>>>>>> Stashed changes:E-Commerce_Project/src/main/java/com/entorno/E_Commerce_Project/model/QR.java
 
     @Id
     private String id;
