@@ -12,9 +12,9 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />  {/* Página de inicio de sesión */}
-          <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/admin" element={<Admin />} />  {/* Página de cliente, solo accesible después de iniciar sesión */}
           <Route path="/user" element={<User />} />  {/* Página de cliente, solo accesible después de iniciar sesión */}
+          <Route path="/create-account" element={<CreateAccount />} />
         </Routes>
       </div>
     </Router>
