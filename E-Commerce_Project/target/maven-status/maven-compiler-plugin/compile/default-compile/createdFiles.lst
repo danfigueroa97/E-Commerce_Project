@@ -1,0 +1,17 @@
+com\entorno\E_Commerce_Project\model\Notification.class
+com\entorno\E_Commerce_Project\repository\ProductRepository.class
+com\entorno\E_Commerce_Project\service\ProductService.class
+com\entorno\E_Commerce_Project\repository\BuyDetailRepository.class
+com\entorno\E_Commerce_Project\service\QRService.class
+com\entorno\E_Commerce_Project\model\BuyDetail.class
+com\entorno\E_Commerce_Project\model\Product.class
+com\entorno\E_Commerce_Project\repository\UserRepository.class
+com\entorno\E_Commerce_Project\service\IProductService.class
+com\entorno\E_Commerce_Project\model\User.class
+com\entorno\E_Commerce_Project\service\IUserService.class
+com\entorno\E_Commerce_Project\ECommerceProjectApplication.class
+com\entorno\E_Commerce_Project\repository\NotificationRepository.class
+com\entorno\E_Commerce_Project\service\UserService.class
+com\entorno\E_Commerce_Project\controller\UserController.class
+com\entorno\E_Commerce_Project\repository\QRRepository.class
+com\entorno\E_Commerce_Project\model\QR.class
