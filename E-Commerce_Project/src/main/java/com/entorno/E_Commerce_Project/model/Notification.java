@@ -12,10 +12,9 @@ public class Notification {
 
     @Id
     private String id;
-
-    private String idNotification;
+    private LocalDate date;
     private String message;
-    private String idUser;
+    private String userId;
 
     public String getId() {
         return id;
