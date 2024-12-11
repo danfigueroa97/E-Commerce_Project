@@ -6,9 +6,9 @@ import styles from '../styles/User.module.css';
 const User = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
-  const [currentView, setCurrentView] = useState("welcome");
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
+  const [currentView, setCurrentView] = useState("welcome"); // 'welcome', 'category', 'cart'
+  const [selectedProduct, setSelectedProduct] = useState(null); // Estado para el producto seleccionado
+  const [cartItems, setCartItems] = useState([]); // Estado para los productos en el carrito
   const welcomeImage = '/fondo.png';
 
   const fetchProductsByCategory = (category) => {
@@ -16,7 +16,7 @@ const User = () => {
       .then((response) => {
         setProducts(response.data);
         setCategory(category);
-        setCurrentView("category");
+        setCurrentView("category"); // Cambiar la vista actual a categoria
       })
       .catch((error) => console.error("Error fetching products:", error));
   };
@@ -30,9 +30,17 @@ const User = () => {
     setCartItems((prevItems) => prevItems.filter((_, index) => index !== productIndex));
   };
 
-  const viewProductDetails = (product) => setSelectedProduct(product);
-  const closeProductDetails = () => setSelectedProduct(null);
-  const goToCart = () => setCurrentView("cart");
+  const viewProductDetails = (product) => {
+    setSelectedProduct(product); // Establecer el producto seleccionado
+  };
+
+  const closeProductDetails = () => {
+    setSelectedProduct(null); // Limpiar el producto seleccionado
+  };
+
+  const goToCart = () => {
+    setCurrentView("cart"); // Cambiar la vista actual al carrito
+  };
 
   return (
     <div className={styles.userPage}>
@@ -60,19 +68,39 @@ const User = () => {
             <h2>{`Productos de ${category}`}</h2>
             <div className={styles.productList}>
               {products.map((product) => (
-                <div key={product.id} className={styles.productItem}>
+                <div 
+                  key={product.id} 
+                  className={styles.productItem} 
+                  onClick={() => viewProductDetails(product)} // Mostrar detalles del producto
+                >
                   <img src={product.image} alt={product.name} width={100} />
                   <h3>{product.name}</h3>
                   <p>Precio: ${product.price}</p>
                   <button
                     className={styles.addToCartButton} // Conserva tu clase existente
-                    onClick={() => addToCart(product)}
+                    onClick={(e) => { e.stopPropagation(); addToCart(product); }} // Evitar el click en detalles
                   >
                     Add to Cart
                   </button>
                 </div>
               ))}
             </div>
+
+            {selectedProduct && (
+              <div className={styles.productDetails}>
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name} 
+                  className={styles.productDetailImage} 
+                />
+                <div className={styles.productDetailsContent}>
+                  <h2>{selectedProduct.name}</h2>
+                  <p>Precio: ${selectedProduct.price}</p>
+                  <p>Descripción: {selectedProduct.description}</p>
+                  <button className={styles.closeButton} onClick={closeProductDetails}>Cerrar</button>
+                </div>
+              </div>
+            )}
           </>
         )}
 
