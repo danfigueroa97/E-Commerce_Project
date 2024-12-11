@@ -1,111 +1,152 @@
 /* User.css */
 
-  .user-page {
-    background-image: none; /* Quita la imagen de fondo */
-    text-align: center;
-    background-color: #f9f9f9; /* Fondo claro */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Encabezado */
-  .header {
-    background-color: #2facff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between; /* Título a la izquierda, carrito a la derecha */
-    align-items: center;
-    gap: 20px; /* Espaciado entre las secciones */
-  }
-  
-  /* Título */
-  .site-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin: 0;
-  }
-  
-  /* Barra de Navegación */
-  .nav-bar {
-    display: flex;
-    gap: 20px; /* Espaciado entre botones */
-  }
-  
-  .nav-button {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .nav-button:hover {
-    background-color: white;
-    color: #d145e4;
-  }
-  
-  /* Botón de Carrito */
-  .cart-button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Espaciado entre texto e ícono */
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .cart-button:hover {
-    color: #ddd;
-  }
-  
-  .cart-icon {
-    font-size: 18px;
-  }
-  
-  /* Contenido Principal */
-  .main-content {
-    margin-top: 50px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #333;
-  }
-  
-  p {
-    font-size: 16px;
-    color: #666;
-  }
+.user-page {
+  background-image: none; /* Quita la imagen de fondo */
+  text-align: center;
+  background-color: #f9f9f9; /* Fondo claro */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  .producto-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    text-align: center;
-  }
-  
-  .producto-imagen {
-    width: 100%;
-    height: auto;
-  }
-  
-  .productos-lista {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .productos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+/* Encabezado */
+.header {
+  background-color: #2facff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; /* Título a la izquierda, carrito a la derecha */
+  align-items: center;
+  gap: 250px; /* Espaciado entre las secciones */
+}
+/* Título */
+.site-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+/* Barra de Navegación */
+.nav-bar {
+  display: flex;
+  gap: 20px; /* Espaciado entre botones */
+}
+
+.nav-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: #d145e4;
+}
+
+/* Botón de Carrito */
+.cart-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Espaciado entre texto e ícono */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cart-button:hover {
+  color: #ddd;
+}
+
+.cart-icon {
+  font-size: 18px;
+}
+
+/* Contenido Principal */
+.main-content {
+  margin-top: 50px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+p {
+  font-size: 16px;
+  color: #666;
+}
+
+
+/* Estilo de la lista de productos */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 productos por fila */
+  gap: 20px; /* Espaciado entre los productos */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilo de cada producto */
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 350px; /* Altura fija para cada producto */
+  box-sizing: border-box;
+}
+
+.product-item img {
+  width: 100%; /* Asegura que la imagen ocupe el 100% del ancho del contenedor */
+  height: 200px; /* Ajusta la altura de la imagen */
+  object-fit: contain; /* La imagen se ajusta proporcionalmente dentro del contenedor sin recortarse */
+  border-radius: 8px;
+}
+
+/* Contenedor que agrupa la imagen y el texto */
+.product-content {
+  background-color: #fff; /* Fondo blanco */
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Estilo para los textos (nombre, categoría, precio) */
+.product-item h3,
+.product-item p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.product-item h3 {
+  font-weight: bold;
+}
+
+.product-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.product-item p:last-child {
+  font-weight: bold;
+  color: #333;
+}
+
+.product-item p.price {
+  font-weight: bold;
+  color: #2facff;
+}

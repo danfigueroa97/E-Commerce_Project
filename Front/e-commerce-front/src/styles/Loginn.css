@@ -1,14 +1,5 @@
 body {
-    margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
-    background: url('https://comunicaciones.uis.edu.co/wp-content/uploads/2022/04/banner-3-1.jpg')
-      no-repeat center center fixed;
-    background-size: cover;
-  }
-
-  .user-page {
-    background-image: none !important; /* Quita la imagen para este componente */
   }
   
   .login-container {
@@ -17,6 +8,11 @@ body {
     align-items: center;
     height: 100vh;
     backdrop-filter: blur(5px);
+    background: url('https://comunicaciones.uis.edu.co/wp-content/uploads/2022/04/banner-3-1.jpg')
+      no-repeat center center fixed;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
   }
   
   .login-box {
