@@ -7,6 +7,7 @@ const Admin = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     category: "",
+    description:"",
     stock: "",
     price: "",
     image: ""
@@ -57,6 +58,7 @@ const Admin = () => {
           setNewProduct({
             name: "",
             category: "",
+            description:"",
             stock: "",
             price: "",
             image: ""
@@ -108,6 +110,14 @@ const Admin = () => {
             required
           />
           <input
+            type="text"
+            name="description"
+            value={isEditing ? editingProduct.description : newProduct.description}
+            onChange={handleInputChange}
+            placeholder="Description"
+            required
+          />
+          <input
             type="number"
             name="stock"
             value={isEditing ? editingProduct.stock : newProduct.stock}
@@ -141,6 +151,7 @@ const Admin = () => {
             <div>
               <h3>{product.name}</h3>
               <p>Category: {product.category}</p>
+              <p>Description: {product.description}</p>
               <p>Stock: {product.stock}</p>
               <p>Price: ${product.price}</p>
               <img src={product.image} alt={product.name} width={100} />

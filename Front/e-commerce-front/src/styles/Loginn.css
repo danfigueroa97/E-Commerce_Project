@@ -6,6 +6,10 @@ body {
       no-repeat center center fixed;
     background-size: cover;
   }
+
+  .user-page {
+    background-image: none !important; /* Quita la imagen para este componente */
+  }
   
   .login-container {
     display: flex;

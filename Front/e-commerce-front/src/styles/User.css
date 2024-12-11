@@ -1,0 +1,111 @@
+/* User.css */
+
+  .user-page {
+    background-image: none; /* Quita la imagen de fondo */
+    text-align: center;
+    background-color: #f9f9f9; /* Fondo claro */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Encabezado */
+  .header {
+    background-color: #2facff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Título a la izquierda, carrito a la derecha */
+    align-items: center;
+    gap: 20px; /* Espaciado entre las secciones */
+  }
+  
+  /* Título */
+  .site-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+  }
+  
+  /* Barra de Navegación */
+  .nav-bar {
+    display: flex;
+    gap: 20px; /* Espaciado entre botones */
+  }
+  
+  .nav-button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: white;
+    color: #d145e4;
+  }
+  
+  /* Botón de Carrito */
+  .cart-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaciado entre texto e ícono */
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .cart-button:hover {
+    color: #ddd;
+  }
+  
+  .cart-icon {
+    font-size: 18px;
+  }
+  
+  /* Contenido Principal */
+  .main-content {
+    margin-top: 50px;
+  }
+  
+  h2 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #666;
+  }
+
+  .producto-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .producto-imagen {
+    width: 100%;
+    height: auto;
+  }
+  
+  .productos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .productos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
