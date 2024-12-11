@@ -43,17 +43,17 @@ const User = () => {
         <h1 className={styles.siteName}>InnovaTech</h1>
         <nav className={styles.navBar}>
           <button className={styles.navButton} onClick={() => fetchProductsByCategory("Computador")}>
-            Computadores
+            Computers
           </button>
           <button className={styles.navButton} onClick={() => fetchProductsByCategory("Celular")}>
-            Celulares
+            Cellphones
           </button>
           <button className={styles.navButton} onClick={() => fetchProductsByCategory("Accesorio")}>
-            Accesorios
+            Accessories
           </button>
         </nav>
         <button className={styles.cartButton} onClick={() => setShowCart(true)}>
-          Carrito
+          Cart
           <span className={styles.cartIcon}>🛒</span>
         </button>
       </header>

@@ -21,6 +21,7 @@
 .siteName {
   font-size: 2.5rem; /* Aumentar el tamaño del texto */
   margin: 0;
+  font-weight: bold;
   flex: 1; /* Ocupa el máximo espacio disponible */
 }
 
@@ -31,8 +32,9 @@
 }
 
 .navButton {
-  background-color: #4CAF50;
+  background-color: #aa4463;
   color: white;
+  font-weight: bold;
   border: none;
   padding: 10px 15px; /* Ajustar padding */
   margin: 0 10px;
@@ -43,12 +45,13 @@
 }
 
 .navButton:hover {
-  background-color: #45a049;
+  background-color: #75384a;
 }
 
 .cartButton {
   background-color: #ff8c00;
   color: white;
+  font-weight: bold;
   border: none;
   padding: 6px 12px; /* Ajustar padding */
   font-size: 1rem;
@@ -62,7 +65,7 @@
 }
 
 .cartButton:hover {
-  background-color: #e07b00;
+  background-color: #884d04;
 }
 
 .cartIcon {
@@ -94,7 +97,6 @@
 
 .productList {
   display: flex;
-  width: 90%;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center; /* Centrar los productos */
