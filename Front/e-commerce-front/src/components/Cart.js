@@ -1,22 +1,36 @@
-// Cart.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Cart.module.css';
 
-const Cart = ({ onUpdateCart, closeCart }) => {
+const Cart = ({ showCart, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
 
-  // Fetch cart items for the current user
+  // Cargar el carrito cada vez que se abre
   useEffect(() => {
+    if (showCart) {
+      const fetchCartItems = () => {
+        axios.get("http://localhost:8080/cart/items")
+          .then((response) => {
+            setCartItems(response.data);
+            calculateTotal(response.data);
+          })
+          .catch((error) => console.error("Error fetching cart items:", error));
+      };
+  
+      fetchCartItems();
+    }
+  }, [showCart]);
+  
+
+  const fetchCartItems = () => {
     axios.get("http://localhost:8080/cart/items")
       .then((response) => {
         setCartItems(response.data);
         calculateTotal(response.data);
-        if (onUpdateCart) onUpdateCart(response.data.length); // Actualizar la cantidad de productos en el carrito
       })
       .catch((error) => console.error("Error fetching cart items:", error));
-  }, []);
+  };
 
   const calculateTotal = (items) => {
     const totalAmount = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -26,27 +40,16 @@ const Cart = ({ onUpdateCart, closeCart }) => {
   const removeFromCart = (productId) => {
     axios.delete(`http://localhost:8080/cart/remove/${productId}`)
       .then(() => {
-        setCartItems(cartItems.filter(item => item.id !== productId));
-        calculateTotal(cartItems);
-        if (onUpdateCart) onUpdateCart(cartItems.length); // Actualizar la cantidad de productos en el carrito
+        const updatedCart = cartItems.filter(item => item.id !== productId);
+        setCartItems(updatedCart);
+        calculateTotal(updatedCart);
       })
       .catch((error) => console.error("Error removing from cart:", error));
   };
 
-  const addToCart = (productId) => {
-    axios.post(`http://localhost:8080/cart/add/${productId}`)
-      .then((response) => {
-        alert("Producto añadido al carrito");
-        setCartItems([...cartItems, response.data]); // Añadir el nuevo producto al estado de los productos en el carrito
-        calculateTotal([...cartItems, response.data]); // Calcular el nuevo total
-        if (onUpdateCart) onUpdateCart(cartItems.length + 1); // Actualizar la cantidad de productos en el carrito
-      })
-      .catch((error) => console.error("Error adding to cart:", error));
-  };
-
   return (
-    <div className="cart-container">
-      <button className="close-cart-button" onClick={closeCart}>Close Cart</button>
+    <div className={`cart-container ${showCart ? 'visible' : 'hidden'}`}>
+      <button className="close-cart" onClick={onClose}>Cerrar</button>
       <h2>Your Cart</h2>
       <ul>
         {cartItems.map((item) => (

@@ -9,8 +9,7 @@ const User = () => {
   const [showCart, setShowCart] = useState(false);
 
   const fetchProductsByCategory = (category) => {
-    axios
-      .get(`http://localhost:8080/product/list/${category}`)
+    axios.get(`http://localhost:8080/product/list/${category}`)
       .then((response) => {
         setProducts(response.data);
         setCategory(category);
