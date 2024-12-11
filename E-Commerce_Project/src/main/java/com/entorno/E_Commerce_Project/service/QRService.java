@@ -9,7 +9,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -19,10 +22,10 @@ public class QRService {
     private QRRepository qrRepository;
 
     /**
-     * Genera el contenido del QR en formato PNG.
+     * Genera el contenido del QR en formato Base64.
      *
      * @param content Contenido del QR.
-     * @return QR en formato PNG como arreglo de bytes.
+     * @return QR en formato Base64.
      */
     public String generateQRContent(String content) {
         try {
@@ -47,22 +50,38 @@ public class QRService {
         String content = "Compra ID: " + buyId; // Agregar más información según sea necesario.
         String qrContent = generateQRContent(content);
 
+        // Verificar si ya existe un QR para esta compra
+        Optional<QR> existingQR = qrRepository.findOneByBuyId(buyId);
+        if (existingQR.isPresent()) {
+            QR existing = existingQR.get();
+            existing.setQrContent(qrContent); // Actualizar el contenido del QR
+            return qrRepository.save(existing);
+        }
+
         // Crear el objeto QR.
         QR qr = new QR();
-            qr.setBuyId(buyId);
-            qr.setQrContent(qrContent);
+        qr.setBuyId(buyId);
+        qr.setQrContent(qrContent);
 
         // Guardar el QR en la base de datos.
         return qrRepository.save(qr);
     }
+    public byte[] generateQRImage(String content) throws IOException {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 250, 250);
+            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-    /**
-     * Obtiene un QR por su ID.
-     *
-     * @param id ID del QR en MongoDB.
-     * @return Documento QR si existe.
-     */
-    public Optional<QR> getQRById(String id) {
-        return qrRepository.findById(id);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", outputStream);
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            throw new IOException("Error al generar la imagen QR.", e);
+        }
     }
+
+    public Optional<QR> getQRByBuyId(String buyId) {
+        return qrRepository.findOneByBuyId(buyId);
+    }
+
 }

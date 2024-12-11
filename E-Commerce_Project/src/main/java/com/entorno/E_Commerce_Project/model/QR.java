@@ -10,13 +10,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "qrcode")
-
 public class QR {
 
     @Id
     private String id;
-    private String qrContent;
-    private String buyId;
+    private String qrContent; // Contenido Base64 del QR para envío en correos electrónicos u otros fines
+    private String buyId; // ID de la compra asociada
+    private byte[] qrImage; // Imagen del QR como un arreglo de bytes
+
     public void associateBuy(String buyId) {
         this.buyId = buyId;
     }
@@ -43,5 +44,13 @@ public class QR {
 
     public void setBuyId(String buyId) {
         this.buyId = buyId;
+    }
+
+    public byte[] getQrImage() {
+        return qrImage;
+    }
+
+    public void setQrImage(byte[] qrImage) {
+        this.qrImage = qrImage;
     }
 }

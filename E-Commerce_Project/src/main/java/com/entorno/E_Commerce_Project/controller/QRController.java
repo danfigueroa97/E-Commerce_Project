@@ -26,8 +26,9 @@ public class QRController {
 
     @GetMapping("/{id}")
     public ResponseEntity<QR> getQRById(@PathVariable String id) {
-        return qrService.getQRById(id)
+        return qrService.getQRByBuyId(id)
                 .map(qr -> new ResponseEntity<>(qr, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 }

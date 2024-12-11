@@ -4,11 +4,16 @@ import com.entorno.E_Commerce_Project.model.Notification;
 import com.entorno.E_Commerce_Project.model.User;
 import com.entorno.E_Commerce_Project.repository.NotificationRepository;
 import com.entorno.E_Commerce_Project.repository.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -22,6 +27,8 @@ public class NotificationService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private QRService qrService;
 
     public Notification createNotification(Notification notification) {
         // Guardar la notificación en la base de datos
@@ -32,6 +39,7 @@ public class NotificationService {
 
         return savedNotification;
     }
+
     private String getUserEmailById(String userId) {
         // Reemplaza 'userRepository' con el nombre de tu repositorio de usuarios
         Optional<User> optionalUser = userRepository.findById(userId); // Asumiendo que tienes un repositorio de usuarios
@@ -44,6 +52,7 @@ public class NotificationService {
             return null;
         }
     }
+
     public void sendNotificationEmail(String userId, String message) {
         // Aquí debes obtener el correo del usuario desde tu base de datos o contexto de sesión
         String userEmail = getUserEmailById(userId); // Reemplázalo con la lógica para obtener el email del usuario
@@ -64,6 +73,24 @@ public class NotificationService {
             System.err.println("No se pudo encontrar el correo del usuario con ID: " + userId);
         }
     }
+    public void sendNotificationEmailWithQR(String userEmail, String message, String qrContent) throws MessagingException, IOException {
+        // Generar la imagen QR como bytes
+        byte[] qrImage = qrService.generateQRImage(qrContent);
 
+        // Crear el mensaje de correo electrónico
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
+        helper.setTo(userEmail);
+        helper.setSubject("Tu Código QR");
+        helper.setText(message);
+
+        // Adjuntar la imagen QR
+        helper.addAttachment("qr-code.png", new ByteArrayResource(qrImage));
+
+        // Enviar el correo
+        javaMailSender.send(mimeMessage);
+    }
 }
+
+

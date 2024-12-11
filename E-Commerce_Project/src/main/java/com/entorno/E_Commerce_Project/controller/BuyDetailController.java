@@ -1,6 +1,7 @@
 package com.entorno.E_Commerce_Project.controller;
 
 
+import com.entorno.E_Commerce_Project.ENUM.PayMethod;
 import com.entorno.E_Commerce_Project.model.BuyDetail;
 import com.entorno.E_Commerce_Project.model.Notification;
 import com.entorno.E_Commerce_Project.model.QR;
@@ -33,14 +34,22 @@ public class BuyDetailController {
             // 1. Crear la compra
             BuyDetail createdBuyDetail = buyDetailService.createBuyDetail(buyDetail);
 
-            // 2. Generar el QR asociado a la compra
-            QR qr = qrService.generateQR(createdBuyDetail.getId());
+            // 2. Generar el QR asociado a la compra si es método de pago virtual
+            if (buyDetail.getPayMethod().equals(PayMethod.VIRTUAL)) {
+                QR qr = qrService.generateQR(createdBuyDetail.getId());
 
-            // 3. Enviar notificación al usuario
-            Notification notification = new Notification(LocalDate.now(),
-                    "Su compra ha sido registrada. Código QR generado: " + qr.getQrContent(),
-                    createdBuyDetail.getIdUser());
-            notificationService.createNotification(notification);
+                // 3. Enviar notificación al usuario
+                Notification notification = new Notification(LocalDate.now(),
+                        "Su compra ha sido registrada. Código QR generado: " + qr.getQrContent(),
+                        createdBuyDetail.getIdUser());
+                notificationService.createNotification(notification);
+            } else {
+                // Solo se envía el email sin el QR si es compra presencial
+                Notification notification = new Notification(LocalDate.now(),
+                        "Su compra ha sido registrada.",
+                        createdBuyDetail.getIdUser());
+                notificationService.createNotification(notification);
+            }
 
             return new ResponseEntity<>(createdBuyDetail, HttpStatus.CREATED);
         } catch (Exception e) {

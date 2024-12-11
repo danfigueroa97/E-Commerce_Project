@@ -34,5 +34,15 @@ public class NotificationController {
         }
     }
 
+    @PostMapping("/sendNotificationWithQR")
+    public ResponseEntity<String> sendNotificationWithQR(@RequestParam String userEmail, @RequestParam String qrContent) {
+        try {
+            notificationService.sendNotificationEmailWithQR(userEmail, "Aquí está tu QR generado:", qrContent);
+            return new ResponseEntity<>("Correo enviado correctamente con el QR adjunto.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al enviar el correo: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

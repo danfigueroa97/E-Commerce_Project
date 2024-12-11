@@ -27,13 +27,14 @@ public class BuyDetailService implements IBuyDetail {
         // Guardar la compra en la base de datos
         BuyDetail savedBuyDetail = buyDetailRepository.save(buyDetail);
 
-        // Generar QR si el método de pago es virtual
-        if (PayMethod.VIRTUAL.equals(buyDetail.getPayMethod())) {
+        // Verificar si el método de pago es virtual antes de generar el QR
+        if (PayMethod.VIRTUAL.equals(savedBuyDetail.getPayMethod())) {
+            // Generar el QR asociado solo después de que la compra se haya guardado en la base de datos
             qrService.generateQR(savedBuyDetail.getId());
         }
+
         return savedBuyDetail;
     }
-
     @Override
     public List<BuyDetail> listAllBuyDetails() {
         return buyDetailRepository.findAll();
