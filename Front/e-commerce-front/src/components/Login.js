@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Loginn.css';
+import styles from '../styles/Loginn.module.css';
 
 const Login = () => {
   const [showForm, setShowForm] = useState(false);
@@ -22,69 +22,103 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Enviar datos de inicio de sesión al backend
-      const response = await axios.post('http://localhost:8080/user/login', { ...formData, role });
+      const response = await axios.post('http://localhost:8080/user/login', {
+        ...formData,
+        role,
+      });
 
       if (response.status === 200) {
-        // Guardar los datos del usuario en localStorage
-        localStorage.setItem('user', JSON.stringify({
-          username: response.data.username,  // Nombre de usuario
-          role: response.data.role,          // Rol del usuario (ADMIN, USER, etc.)
-          id: response.data.id,              // ID del usuario (opcional)
-          email: response.data.email,        // Correo electrónico (opcional)
-        }));
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            username: response.data.username,
+            role: response.data.role,
+            id: response.data.id,
+            email: response.data.email,
+          })
+        );
 
-        // Redirigir a la página correspondiente según el rol
-        if (role === 'ADMIN') {
-          navigate('/admin');
-        } else if (role === 'USER') {
-          navigate('/user');
-        }
+        // Redirección según rol
+        navigate(role === 'ADMIN' ? '/admin' : '/user');
       }
     } catch (error) {
-      alert('Login failed: ' + error.response?.data?.message || 'Unknown error');
+      alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
     }
   };
 
   return (
-    <div className="login-container">
+    <div className={styles['login-container']}>
       {!showForm ? (
-        <div className="login-box">
-          <h1>Welcome</h1>
-          <div className="button-container">
-            <button onClick={() => handleButtonClick('ADMIN')}>Login as Admin</button>
-            <button onClick={() => handleButtonClick('USER')}>Login as User</button>
+        <div className={styles['login-box']}>
+          <h1 className={styles['login-title']}>Welcome</h1>
+          <div className={styles['login-button-container']}>
+            <button
+              onClick={() => handleButtonClick('ADMIN')}
+              className={styles['login-button']}
+              aria-label="Login as Admin"
+            >
+              Login as Admin
+            </button>
+            <button
+              onClick={() => handleButtonClick('USER')}
+              className={styles['login-button']}
+              aria-label="Login as User"
+            >
+              Login as User
+            </button>
           </div>
-          <p className="create-account" onClick={() => navigate('/create-account')}>
+          <p
+            className={styles['login-create-account']}
+            onClick={() => navigate('/create-account')}
+          >
             Don't have an account? <span>Create Account</span>
           </p>
         </div>
       ) : (
-        <div className="login-box">
-          <h2>Login como {role}</h2>
-          <form onSubmit={handleSubmit}>
+        <div className={styles['login-box']}>
+          <h2 className={styles['login-title']}>Login as {role}</h2>
+          <form onSubmit={handleSubmit} className={styles['login-form']}>
             <div>
-              <label>Username:</label>
+              <label htmlFor="username" className={styles['login-label']}>
+                Username:
+              </label>
               <input
                 type="text"
+                id="username"
                 name="username"
                 value={formData.username}
                 onChange={handleInputChange}
                 required
+                className={styles['login-input']}
               />
             </div>
             <div>
-              <label>Password:</label>
+              <label htmlFor="password" className={styles['login-label']}>
+                Password:
+              </label>
               <input
                 type="password"
+                id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
                 required
+                className={styles['login-input']}
               />
             </div>
-            <button type="submit">Enter</button>
-            <button type="button" onClick={() => setShowForm(false)}>
+            <button
+              type="submit"
+              className={`${styles['login-button']} ${styles['submit']}`}
+              aria-label="Submit Login"
+            >
+              Enter
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className={`${styles['login-button']} ${styles['cancel']}`}
+              aria-label="Return to Role Selection"
+            >
               Return
             </button>
           </form>

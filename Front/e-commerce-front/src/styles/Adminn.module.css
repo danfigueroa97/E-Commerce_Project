@@ -1,0 +1,107 @@
+.adminPanel {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.heading {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabButton {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tabButton:hover {
+  background-color: #218838;
+}
+
+.crudContainer {
+  margin-top: 20px;
+}
+
+.backButton, .createButton, .submitButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createButton {
+  background-color: #17a2b8;
+}
+
+.submitButton {
+  background-color: #28a745;
+}
+
+.submitButton:hover, .createButton:hover, .backButton:hover {
+  background-color: #0056b3;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.productList, .userList {
+  list-style: none;
+  padding: 0;
+}
+
+.productItem, .userItem {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productItem img, .userItem img {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.productData, .userData {
+  display: flex;
+  gap: 15px;
+}
+
+.productActions, .userActions {
+  display: flex;
+  gap: 10px;
+}
+
+.actionButton {
+  padding: 8px 16px;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background-color: #e0a800;
+}

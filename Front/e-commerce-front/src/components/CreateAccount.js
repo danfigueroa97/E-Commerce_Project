@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/Loginn.css';
+import '../styles/Loginn.module.css';
 
 const CreateAccount = () => {
   const [formData, setFormData] = useState({ username: '', password: '', email: '', address: '' });

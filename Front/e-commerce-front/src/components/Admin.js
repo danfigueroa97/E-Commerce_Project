@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/Adminn.css';
+import styles from '../styles/Adminn.module.css'; 
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -185,102 +185,55 @@ const Admin = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Panel</h1>
+    <div className={styles.adminPanel}>
+      <h1 className={styles.heading}>Admin Panel</h1>
 
       {/* Mostrar botones de pestañas */}
       {currentTab === '' && (
-        <div className="tabs">
-          <button onClick={() => handleTabClick('crud1')}>CRUD 1: Productos</button>
-          <button onClick={() => handleTabClick('crud2')}>CRUD 2: Usuarios</button>
+        <div className={styles.tabs}>
+          <button onClick={() => handleTabClick('crud1')} className={styles.tabButton}>CRUD 1: Productos</button>
+          <button onClick={() => handleTabClick('crud2')} className={styles.tabButton}>CRUD 2: Usuarios</button>
         </div>
       )}
 
       {/* Mostrar CRUD 1 (Productos) si está seleccionado */}
       {currentTab === 'crud1' && (
-        <div>
-          <button onClick={() => setShowForm(!showForm)}>
+        <div className={styles.crudContainer}>
+          <button onClick={() => handleTabClick('')} className={styles.backButton}>Volver</button>
+          <button onClick={() => setShowForm(!showForm)} className={styles.createButton}>
             {showForm ? "Cancel" : "Create New Product"}
           </button>
 
           {showForm && (
-            <form onSubmit={handleProductSubmit}>
-              <input
-                type="text"
-                name="name"
-                value={isEditing ? editingProduct?.name || "" : newProduct.name}
-                onChange={handleProductInputChange}
-                placeholder="Product Name"
-                required
-              />
-              <input
-                type="text"
-                name="category"
-                value={isEditing ? editingProduct?.category || "" : newProduct.category}
-                onChange={handleProductInputChange}
-                placeholder="Category"
-                required
-              />
-              <input
-                type="text"
-                name="description"
-                value={isEditing ? editingProduct?.description || "" : newProduct.description}
-                onChange={handleProductInputChange}
-                placeholder="Description"
-                required
-              />
-              <input
-                type="number"
-                name="stock"
-                value={isEditing ? editingProduct?.stock || "" : newProduct.stock}
-                onChange={handleProductInputChange}
-                placeholder="Stock"
-                required
-              />
-              <input
-                type="number"
-                name="price"
-                value={isEditing ? editingProduct?.price || "" : newProduct.price}
-                onChange={handleProductInputChange}
-                placeholder="Price"
-                required
-              />
-              <input
-                type="text"
-                name="image"
-                value={isEditing ? editingProduct?.image || "" : newProduct.image}
-                onChange={handleProductInputChange}
-                placeholder="Image URL"
-              />
-              <input
-                type="date"
-                name="date"
-                value={isEditing ? editingProduct?.date || "" : newProduct.date}
-                onChange={handleProductInputChange}
-                placeholder="Date"
-                required
-              />
-              <button type="submit">{isEditing ? "Update Product" : "Create Product"}</button>
+            <form onSubmit={handleProductSubmit} className={styles.form}>
+              <input type="text" name="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} placeholder="Product Name" className={styles.input} required />
+              <input type="text" name="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} placeholder="Category" className={styles.input} required />
+              <input type="text" name="description" value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} placeholder="Description" className={styles.input} required />
+              <input type="number" name="stock" value={newProduct.stock} onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} placeholder="Stock" className={styles.input} required />
+              <input type="number" name="price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} placeholder="Price" className={styles.input} required />
+              <input type="text" name="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} placeholder="Image URL" className={styles.input} />
+              <input type="date" name="date" value={newProduct.date} onChange={(e) => setNewProduct({ ...newProduct, date: e.target.value })} placeholder="Date" className={styles.input} required />
+              <button type="submit" className={styles.submitButton}>Create Product</button>
             </form>
           )}
 
-          <h2>Product List</h2>
-          <ul>
+          <h2 className={styles.subHeading}>Product List</h2>
+          <ul className={styles.productList}>
             {products.map((product) => (
-              <li key={product.id}>
-                <img src={product.image} alt={product.name} />
-                <div className="product-data">
+              <li key={product.id} className={styles.productItem}>
+                <img src={product.image} alt={product.name} className={styles.productImage} />
+                <div className={styles.productData}>
                   <span><strong>Category:</strong> {product.category}</span>
                   <span><strong>Stock:</strong> {product.stock}</span>
                   <span><strong>Price:</strong> ${product.price}</span>
                   <span><strong>Date:</strong> {product.date}</span>
                 </div>
-                <div className="product-description">
+                <div className={styles.productDescription}>
                   <span><strong>Description:</strong> {product.description}</span>
                 </div>
-                <div className="product-actions">
-                  <button onClick={() => handleProductEdit(product)}>Edit</button>
-                  <button onClick={() => handleProductDelete(product.id)}>Delete</button>
+                <div className={styles.productActions}>
+                  <button className={styles.actionButton}>Edit</button>
+                  <button className={styles.actionButton}>Delete</button>
                 </div>
               </li>
             ))}
@@ -290,58 +243,34 @@ const Admin = () => {
 
       {/* Mostrar CRUD 2 (Usuarios) si está seleccionado */}
       {currentTab === 'crud2' && (
-        <div>
-          <button onClick={() => setShowUserForm(!showUserForm)}>
+        <div className={styles.crudContainer}>
+          <button onClick={() => handleTabClick('')} className={styles.backButton}>Volver</button>
+          <button onClick={() => setShowUserForm(!showUserForm)} className={styles.createButton}>
             {showUserForm ? "Cancel" : "Create New User"}
           </button>
 
           {showUserForm && (
-            <form onSubmit={handleUserSubmit}>
-              <input
-                type="text"
-                name="name"
-                value={isEditingUser ? editingUser?.name || "" : newUser.name}
-                onChange={handleUserInputChange}
-                placeholder="User Name"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value={isEditingUser ? editingUser?.email || "" : newUser.email}
-                onChange={handleUserInputChange}
-                placeholder="Email"
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                value={isEditingUser ? editingUser?.password || "" : newUser.password}
-                onChange={handleUserInputChange}
-                placeholder="Password"
-                required
-              />
-              <input
-                type="text"
-                name="role"
-                value={isEditingUser ? editingUser?.role || "" : newUser.role}
-                onChange={handleUserInputChange}
-                placeholder="Role"
-              />
-              <button type="submit">{isEditingUser ? "Update User" : "Create User"}</button>
+            <form onSubmit={handleUserSubmit} className={styles.form}>
+              <input type="text" name="username" value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} placeholder="User Name" className={styles.input} required />
+              <input type="email" name="email" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} placeholder="Email" className={styles.input} required />
+              <input type="password" name="password" value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} placeholder="Password" className={styles.input} required />
+              <input type="text" name="address" value={newUser.address} onChange={(e) => setNewUser({ ...newUser, address: e.target.value })} placeholder="Address" className={styles.input} required />
+              <input type="text" name="role" value={newUser.role} onChange={(e) => setNewUser({ ...newUser, role: e.target.value })} placeholder="Role" className={styles.input} />
+              <button type="submit" className={styles.submitButton}>Create User</button>
             </form>
           )}
 
-          <h2>User List</h2>
-          <ul>
+          <h2 className={styles.subHeading}>User List</h2>
+          <ul className={styles.userList}>
             {users.map((user) => (
-              <li key={user.id}>
-                <span><strong>Name:</strong> {user.name}</span>
+              <li key={user.id} className={styles.userItem}>
+                <span><strong>Name:</strong> {user.username}</span>
                 <span><strong>Email:</strong> {user.email}</span>
+                <span><strong>Address:</strong> {user.address}</span>
                 <span><strong>Role:</strong> {user.role}</span>
-                <div className="user-actions">
-                  <button onClick={() => handleUserEdit(user)}>Edit</button>
-                  <button onClick={() => handleUserDelete(user.id)}>Delete</button>
+                <div className={styles.userActions}>
+                  <button className={styles.actionButton}>Edit</button>
+                  <button className={styles.actionButton}>Delete</button>
                 </div>
               </li>
             ))}

@@ -1,7 +1,7 @@
 // Cart.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/Cart.css';
+import '../styles/Cart.module.css';
 
 const Cart = ({ onUpdateCart, closeCart }) => {
   const [cartItems, setCartItems] = useState([]);
