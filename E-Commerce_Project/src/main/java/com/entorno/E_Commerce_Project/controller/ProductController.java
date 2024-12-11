@@ -39,4 +39,9 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/list/{category}")
+    public List<Product> getProductsByCategory(@PathVariable String category) {
+        return productService.ListCategory(category);
+    }
 }

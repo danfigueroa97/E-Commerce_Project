@@ -2,6 +2,7 @@ package com.entorno.E_Commerce_Project.service;
 
 import com.entorno.E_Commerce_Project.DTO.LoginDTO;
 import com.entorno.E_Commerce_Project.ENUM.Role;
+import com.entorno.E_Commerce_Project.model.Product;
 import com.entorno.E_Commerce_Project.model.User;
 import com.entorno.E_Commerce_Project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,4 +83,5 @@ public class UserService implements IUserService{
             throw new IllegalArgumentException("Incorrect username");
         }
     }
+
 }

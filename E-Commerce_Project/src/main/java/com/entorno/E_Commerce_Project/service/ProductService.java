@@ -53,4 +53,9 @@ public class ProductService implements IProductService{
         }
 
     }
+
+    @Override
+    public List<Product> ListCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
 }

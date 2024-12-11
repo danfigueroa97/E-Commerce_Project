@@ -25,4 +25,5 @@ public interface IUserService {
     //Login
     User LoginUser(LoginDTO loginDTO);
 
+
 }

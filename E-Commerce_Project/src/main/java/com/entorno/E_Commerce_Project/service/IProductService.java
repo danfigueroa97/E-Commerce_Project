@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProductService {
 
-    //Listar
+    //List
     List<Product> ListAllProducts();
 
     //Create
@@ -17,5 +17,8 @@ public interface IProductService {
 
     //Delete
     void deleteProduct(String id);
+
+    //List category
+    List<Product> ListCategory(String category);
 
 }
