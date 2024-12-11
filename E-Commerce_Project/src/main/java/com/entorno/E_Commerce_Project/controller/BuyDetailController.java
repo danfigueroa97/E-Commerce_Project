@@ -56,7 +56,25 @@ public class BuyDetailController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/send-email-with-qrcode")
+    public ResponseEntity<String> sendEmailWithQRCode(@RequestBody BuyDetail buyDetail) {
+        try {
+            // 1. Generar el QR asociado a la compra
+            QR qr = qrService.generateQR(buyDetail.getId()); // Asumiendo que tienes un ID único en buyDetail
 
+            // 2. Crear el contenido del correo
+            String emailContent = "Gracias por tu interés. Aquí está tu código QR: " + qr.getQrContent();
+
+            // 3. Enviar notificación al usuario
+            Notification notification = new Notification(LocalDate.now(), emailContent, buyDetail.getIdUser ());
+            notificationService.createNotification(notification);
+
+            // 4. Retornar respuesta exitosa
+            return new ResponseEntity<>("Correo enviado con éxito.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al enviar el correo: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     @GetMapping("/{id}")

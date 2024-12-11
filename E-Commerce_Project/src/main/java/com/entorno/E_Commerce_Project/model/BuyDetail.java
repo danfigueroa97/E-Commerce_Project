@@ -19,7 +19,6 @@ public class BuyDetail {
 
     @Id
     private String id;
-
     private String idUser;
     private String idProduct;
     private String totalPrice;
