@@ -1,107 +1,125 @@
 .adminPanel {
-  font-family: Arial, sans-serif;
   padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
-  font-size: 2em;
-  color: #333;
+  font-size: 2rem;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .tabs {
-  display: flex;
-  gap: 10px;
+  display: flex; /* Usar flexbox para centrar los botones */
+  justify-content: center; /* Centrar horizontalmente */
   margin-bottom: 20px;
 }
 
 .tabButton {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+  padding: 15px 30px; /* Aumentar el padding para hacer los botones más grandes */
+  margin: 0 10px; /* Espaciado horizontal entre botones */
   border: none;
   border-radius: 5px;
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-size: 1.1rem; /* Aumentar el tamaño de la fuente */
 }
 
 .tabButton:hover {
-  background-color: #218838;
+  background-color: #0056b3; /* Color de fondo al pasar el mouse */
 }
 
 .crudContainer {
   margin-top: 20px;
 }
 
-.backButton, .createButton, .submitButton {
+.subHeading {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.addButton, .cancelButton, .submitButton, .actionButton {
+  padding: 8px 12px; /* Ajustado el padding */
+  border: none;
+  border-radius: 5px; /* Usar un valor positivo */
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+}
+
+.addButton:hover, .submitButton:hover, .actionButton:hover {
+  background-color: #218838;
+}
+
+.cancelButton {
+  background-color: #dc3545;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle; /* Alinear verticalmente el contenido */
+}
+
+.table th {
   background-color: #007bff;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 10px 0;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.createButton {
-  background-color: #17a2b8;
+.table tr:hover {
+  background-color: #f1f1f1;
 }
 
-.submitButton {
-  background-color: #28a745;
-}
-
-.submitButton:hover, .createButton:hover, .backButton:hover {
-  background-color: #0056b3;
-}
-
-.form input {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.productList, .userList {
-  list-style: none;
-  padding: 0;
-}
-
-.productItem, .userItem {
-  background-color: #f8f9fa;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.productItem img, .userItem img {
+.productImage {
   width: 50px;
   height: 50px;
+  object-fit: cover;
   border-radius: 5px;
 }
 
-.productData, .userData {
+.productActions {
   display: flex;
-  gap: 15px;
+  gap: 5px; /* Espaciado entre botones */
 }
 
-.productActions, .userActions {
-  display: flex;
-  gap: 10px;
+.form {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.actionButton {
-  padding: 8px 16px;
-  background-color: #ffc107;
-  border: none;
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 1rem;
 }
 
-.actionButton:hover {
-  background-color: #e0a800;
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

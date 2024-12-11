@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from '../styles/Adminn.module.css'; 
+import styles from '../styles/Adminn.module.css';
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +19,7 @@ const Admin = () => {
 
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     role: "",
@@ -28,10 +28,8 @@ const Admin = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
 
-  // Estado para gestionar qué sección mostrar
   const [currentTab, setCurrentTab] = useState('');
 
-  // Fetch all products from the server
   useEffect(() => {
     if (currentTab === 'crud1') {
       axios
@@ -46,7 +44,6 @@ const Admin = () => {
     }
   }, [currentTab]);
 
-  // Manejar los cambios en los inputs del formulario de productos
   const handleProductInputChange = (e) => {
     const { name, value } = e.target;
     if (isEditing) {
@@ -62,7 +59,6 @@ const Admin = () => {
     }
   };
 
-  // Crear o actualizar un producto
   const handleProductSubmit = (e) => {
     e.preventDefault();
     if (isEditing) {
@@ -97,14 +93,12 @@ const Admin = () => {
     }
   };
 
-  // Editar un producto
   const handleProductEdit = (product) => {
     setIsEditing(true);
     setEditingProduct(product);
     setShowForm(true);
   };
 
-  // Eliminar un producto
   const handleProductDelete = (id) => {
     axios
       .delete(`http://localhost:8080/product/delete/${id}`)
@@ -114,7 +108,6 @@ const Admin = () => {
       .catch((error) => console.error("Error deleting product:", error));
   };
 
-  // Manejar los cambios en los inputs del formulario de usuarios
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
     if (isEditingUser) {
@@ -130,7 +123,6 @@ const Admin = () => {
     }
   };
 
-  // Crear o actualizar un usuario
   const handleUserSubmit = (e) => {
     e.preventDefault();
     if (isEditingUser) {
@@ -152,7 +144,7 @@ const Admin = () => {
         .then((response) => {
           setUsers([...users, response.data]);
           setNewUser({
-            name: "",
+            username: "",
             email: "",
             password: "",
             role: "",
@@ -162,14 +154,12 @@ const Admin = () => {
     }
   };
 
-  // Editar un usuario
   const handleUserEdit = (user) => {
     setIsEditingUser(true);
     setEditingUser(user);
     setShowUserForm(true);
   };
 
-  // Eliminar un usuario
   const handleUserDelete = (id) => {
     axios
       .delete(`http://localhost:8080/user/delete/${id}`)
@@ -179,9 +169,12 @@ const Admin = () => {
       .catch((error) => console.error("Error deleting user:", error));
   };
 
-  // Manejar el cambio de pestaña
   const handleTabClick = (tab) => {
     setCurrentTab(tab);
+    setShowForm(false);
+    setShowUserForm(false);
+    setIsEditing(false);
+    setIsEditingUser(false);
   };
 
   return (
@@ -191,90 +184,221 @@ const Admin = () => {
       {/* Mostrar botones de pestañas */}
       {currentTab === '' && (
         <div className={styles.tabs}>
-          <button onClick={() => handleTabClick('crud1')} className={styles.tabButton}>CRUD 1: Productos</button>
-          <button onClick={() => handleTabClick('crud2')} className={styles.tabButton}>CRUD 2: Usuarios</button>
+          <button onClick={() => handleTabClick('crud1')} className={styles.tabButton}>CRUD 1: Products</button>
+          <button onClick={() => handleTabClick('crud2')} className={styles.tabButton}>CRUD 2: Users</button>
         </div>
       )}
 
-      {/* Mostrar CRUD 1 (Productos) si está seleccionado */}
+      {/* Mostrar productos o usuarios según la pestaña seleccionada */}
       {currentTab === 'crud1' && (
         <div className={styles.crudContainer}>
-          <button onClick={() => handleTabClick('')} className={styles.backButton}>Volver</button>
-          <button onClick={() => setShowForm(!showForm)} className={styles.createButton}>
-            {showForm ? "Cancel" : "Create New Product"}
-          </button>
+          <h2 className={styles.subHeading}>Product List</h2>
 
+          {/* Botón de crear producto */}
+          <button onClick={() => setShowForm(true)} className={styles.addButton}>Create Product</button>
+          <button onClick={() => handleTabClick('')} className={styles.cancelButton}>Back</button>
+
+          {/* Tabla de productos */}
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className={styles.productImage}
+                    />
+                  </td>
+                  <td>{product.name}</td>
+                  <td>{product.category}</td>
+                  <td>{product.description}</td>
+                  <td>{product.stock}</td>
+                  <td>{product.price}</td>
+                  <td>{product.date}</td>
+                  <td className={styles.productActions}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleProductEdit(product)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleProductDelete(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Formulario para crear o editar productos */}
           {showForm && (
             <form onSubmit={handleProductSubmit} className={styles.form}>
-              <input type="text" name="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} placeholder="Product Name" className={styles.input} required />
-              <input type="text" name="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} placeholder="Category" className={styles.input} required />
-              <input type="text" name="description" value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} placeholder="Description" className={styles.input} required />
-              <input type="number" name="stock" value={newProduct.stock} onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} placeholder="Stock" className={styles.input} required />
-              <input type="number" name="price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} placeholder="Price" className={styles.input} required />
-              <input type="text" name="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} placeholder="Image URL" className={styles.input} />
-              <input type="date" name="date" value={newProduct.date} onChange={(e) => setNewProduct({ ...newProduct, date: e.target.value })} placeholder="Date" className={styles.input} required />
-              <button type="submit" className={styles.submitButton}>Create Product</button>
+              <input
+                className={styles.input}
+                type="text"
+                name="name"
+                value={isEditing ? editingProduct.name : newProduct.name}
+                onChange={handleProductInputChange}
+                placeholder="Product Name"
+              />
+              <input
+                className={styles.input}
+                type="text"
+                name="category"
+                value={isEditing ? editingProduct.category : newProduct.category}
+                onChange={handleProductInputChange}
+                placeholder="Category"
+              />
+              <input
+                className={styles.input}
+                type="text"
+                name="description"
+                value={isEditing ? editingProduct.description : newProduct.description}
+                onChange={handleProductInputChange}
+                placeholder="Description"
+              />
+              <input
+                className={styles.input}
+                type="number"
+                name="stock"
+                value={isEditing ? editingProduct.stock : newProduct.stock}
+                onChange={handleProductInputChange}
+                placeholder="Stock"
+              />
+              <input
+                className={styles.input}
+                type="number"
+                name="price"
+                value={isEditing ? editingProduct.price : newProduct.price}
+                onChange={handleProductInputChange}
+                placeholder="Price"
+              />
+              <input
+                className={styles.input}
+                type="text"
+                name="image"
+                value={isEditing ? editingProduct.image : newProduct.image}
+                onChange={handleProductInputChange}
+                placeholder="Image URL"
+              />
+              <input
+                className={styles.input}
+                type="date"
+                name="date"
+                value={isEditing ? editingProduct.date : newProduct.date}
+                onChange={handleProductInputChange}
+                placeholder="Date"
+              />
+              <button type="submit" className={styles.submitButton}>
+                {isEditing ? 'Update Product' : 'Create Product'}
+              </button>
             </form>
           )}
-
-          <h2 className={styles.subHeading}>Product List</h2>
-          <ul className={styles.productList}>
-            {products.map((product) => (
-              <li key={product.id} className={styles.productItem}>
-                <img src={product.image} alt={product.name} className={styles.productImage} />
-                <div className={styles.productData}>
-                  <span><strong>Category:</strong> {product.category}</span>
-                  <span><strong>Stock:</strong> {product.stock}</span>
-                  <span><strong>Price:</strong> ${product.price}</span>
-                  <span><strong>Date:</strong> {product.date}</span>
-                </div>
-                <div className={styles.productDescription}>
-                  <span><strong>Description:</strong> {product.description}</span>
-                </div>
-                <div className={styles.productActions}>
-                  <button className={styles.actionButton}>Edit</button>
-                  <button className={styles.actionButton}>Delete</button>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       )}
 
-      {/* Mostrar CRUD 2 (Usuarios) si está seleccionado */}
+      {/* Mostrar usuarios cuando CRUD 2 está seleccionado */}
       {currentTab === 'crud2' && (
         <div className={styles.crudContainer}>
-          <button onClick={() => handleTabClick('')} className={styles.backButton}>Volver</button>
-          <button onClick={() => setShowUserForm(!showUserForm)} className={styles.createButton}>
-            {showUserForm ? "Cancel" : "Create New User"}
-          </button>
+          <h2 className={styles.subHeading}>User List</h2>
 
+          <button onClick={() => setShowUserForm(true)} className={styles.addButton}>
+            Create User
+          </button>
+          <button onClick={() => handleTabClick('')} className={styles.cancelButton}>Back</button>
+
+          {/* Tabla de usuarios */}
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td className={styles.productActions}>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleUserEdit(user)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className={styles.actionButton}
+                      onClick={() => handleUserDelete(user.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Formulario para crear o editar usuarios */}
           {showUserForm && (
             <form onSubmit={handleUserSubmit} className={styles.form}>
-              <input type="text" name="username" value={newUser.username} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} placeholder="User Name" className={styles.input} required />
-              <input type="email" name="email" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} placeholder="Email" className={styles.input} required />
-              <input type="password" name="password" value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} placeholder="Password" className={styles.input} required />
-              <input type="text" name="address" value={newUser.address} onChange={(e) => setNewUser({ ...newUser, address: e.target.value })} placeholder="Address" className={styles.input} required />
-              <input type="text" name="role" value={newUser.role} onChange={(e) => setNewUser({ ...newUser, role: e.target.value })} placeholder="Role" className={styles.input} />
-              <button type="submit" className={styles.submitButton}>Create User</button>
+              <input
+                className={styles.input}
+                type="text"
+                name="username"
+                value={isEditingUser ? editingUser.username : newUser.username}
+                onChange={handleUserInputChange}
+                placeholder="Username"
+              />
+              <input
+                className={styles.input}
+                type="email"
+                name="email"
+                value={isEditingUser ? editingUser.email : newUser.email}
+                onChange={handleUserInputChange}
+                placeholder="Email"
+              />
+              <input
+                className={styles.input}
+                type="password"
+                name="password"
+                value={isEditingUser ? editingUser.password : newUser.password}
+                onChange={handleUserInputChange}
+                placeholder="Password"
+              />
+              <input
+                className={styles.input}
+                type="text"
+                name="role"
+                value={isEditingUser ? editingUser.role : newUser.role}
+                onChange={handleUserInputChange}
+                placeholder="Role"
+              />
+              <button type="submit" className={styles.submitButton}>
+                {isEditingUser ? 'Update User' : 'Create User'}
+              </button>
             </form>
           )}
-
-          <h2 className={styles.subHeading}>User List</h2>
-          <ul className={styles.userList}>
-            {users.map((user) => (
-              <li key={user.id} className={styles.userItem}>
-                <span><strong>Name:</strong> {user.username}</span>
-                <span><strong>Email:</strong> {user.email}</span>
-                <span><strong>Address:</strong> {user.address}</span>
-                <span><strong>Role:</strong> {user.role}</span>
-                <div className={styles.userActions}>
-                  <button className={styles.actionButton}>Edit</button>
-                  <button className={styles.actionButton}>Delete</button>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       )}
     </div>

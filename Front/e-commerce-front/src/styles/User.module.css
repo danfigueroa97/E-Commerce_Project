@@ -1,33 +1,41 @@
-/* User.module.css */
+/* Ajustes generales */
 .userPage {
   font-family: 'Arial', sans-serif;
   color: #333;
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 0px;
+  min-height: 100vh; /* Asegura que la página ocupe al menos toda la altura de la ventana */
 }
 
 .header {
+  display: flex;
+  justify-content: space-between; /* Alinea el contenido a los extremos (izquierda y derecha) */
+  align-items: center; /* Centra verticalmente los elementos */
   background-color: #2d3e50;
   color: #fff;
-  padding: 10px 20px;
-  text-align: center;
+  padding: 15px 20px;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Asegura que el encabezado ocupe el ancho completo */
 }
 
 .siteName {
-  font-size: 2rem;
+  font-size: 2.5rem; /* Aumentar el tamaño del texto */
   margin: 0;
+  flex: 1; /* Ocupa el máximo espacio disponible */
 }
 
 .navBar {
-  margin: 20px 0;
+  display: flex;
+  justify-content: center; /* Centra los botones de las categorías */
+  flex: 2; /* Asegura que se ubiquen al centro */
 }
 
 .navButton {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px; /* Ajustar padding */
   margin: 0 10px;
   font-size: 1rem;
   cursor: pointer;
@@ -43,14 +51,14 @@
   background-color: #ff8c00;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 6px 12px; /* Ajustar padding */
   font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .cartButton:hover {
@@ -67,12 +75,31 @@
   background-color: #fff;
   margin-top: 20px;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor para la imagen de bienvenida */
+.welcomeContainer {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  overflow: hidden; /* Evita que la imagen se desborde */
+}
+
+/* Imagen de bienvenida que se ajusta a la pantalla */
+.welcomeImage {
+  width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+  height: 100%; /* La imagen ocupa toda la altura del contenedor */
+  object-fit: cover; /* Ajusta la imagen manteniendo su proporción, recorta si es necesario */
+  border-radius: 10px; /* Bordes redondeados para la imagen */
 }
 
 .productList {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center; /* Centrar los productos */
 }
 
 .productItem {
@@ -108,7 +135,7 @@
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px; /* Ajustar padding */
   font-size: 1rem;
   cursor: pointer;
   border-radius: 5px;
@@ -121,4 +148,94 @@
 
 .productItem p:last-of-type {
   font-weight: bold;
+}
+
+/* Estilos para el detalle del producto */
+.productDetails {
+  position: fixed; /* Fijar el detalle del producto */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrar el detalle */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+  display: flex;
+  align-items: center;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto; /* Habilitar el scroll vertical cuando el contenido exceda el máximo de altura */
+}
+
+/* Estilos para la imagen dentro del detalle del producto */
+.productDetailImage {
+  width: 40%; /* La imagen ocupa el 40% del ancho del contenedor */
+  object-fit: cover;
+  margin-right: 20px; /* Un poco de espacio entre la imagen y el texto */
+  border-radius: 10px;
+}
+
+/* Estilos para el texto y detalles del producto */
+.productDetailsContent {
+  flex: 1; /* El texto ocupa el espacio restante */
+  padding: 10px;
+  text-align: left;
+}
+
+/* Estilos para el botón de cerrar */
+.closeButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.closeButton:hover {
+  background-color: #45a049;
+}
+
+/* Estilos para el detalle del producto dentro de un contenedor */
+.User_productDetails__OwdvA {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 90%;
+  max-height: 90%; /* Limitar el alto máximo para que no se desborde de la ventana */
+  overflow-y: auto; /* Habilitar el scroll vertical cuando el contenido exceda el máximo de altura */
+}
+
+/* Estilos para el fondo oscuro cuando se muestra el detalle del producto */
+.User_productDetails__OwdvA::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  z-index: -1; /* Asegurarse de que el fondo esté detrás del detalle */
+}
+
+/* Estilos para el contenido del detalle, especialmente para los párrafos */
+.User_productDetails__OwdvA p {
+  margin: 10px 0;
+  padding: 5px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+  text-align: justify;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
