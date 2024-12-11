@@ -22,8 +22,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Enviar datos de inicio de sesión al backend
       const response = await axios.post('http://localhost:8080/user/login', { ...formData, role });
+
       if (response.status === 200) {
+        // Guardar los datos del usuario en localStorage
+        localStorage.setItem('user', JSON.stringify({
+          username: response.data.username,  // Nombre de usuario
+          role: response.data.role,          // Rol del usuario (ADMIN, USER, etc.)
+          id: response.data.id,              // ID del usuario (opcional)
+          email: response.data.email,        // Correo electrónico (opcional)
+        }));
+
+        // Redirigir a la página correspondiente según el rol
         if (role === 'ADMIN') {
           navigate('/admin');
         } else if (role === 'USER') {
@@ -84,4 +95,3 @@ const Login = () => {
 };
 
 export default Login;
-
