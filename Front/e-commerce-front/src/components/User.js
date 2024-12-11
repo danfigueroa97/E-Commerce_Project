@@ -8,7 +8,9 @@ const User = () => {
   const [category, setCategory] = useState("");
   const [showCart, setShowCart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // Estado para el producto seleccionado
+  const [cartItems, setCartItems] = useState([]); // Estado para los productos en el carrito
   const welcomeImage = '/fondo.png';
+
   const fetchProductsByCategory = (category) => {
     axios.get(`http://localhost:8080/product/list/${category}`)
       .then((response) => {
@@ -18,13 +20,9 @@ const User = () => {
       .catch((error) => console.error("Error fetching products by category:", error));
   };
 
-  const addToCart = (productId) => {
-    axios.post(`http://localhost:8080/cart/add/${productId}`)
-      .then(() => {
-        alert("Producto añadido al carrito");
-        setShowCart(true);
-      })
-      .catch((error) => console.error("Error adding to cart:", error));
+  const addToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]); // Añadir el producto al carrito
+    alert("Producto añadido al carrito");
   };
 
   const closeCart = () => {
@@ -65,7 +63,7 @@ const User = () => {
           <h2>{`Productos de ${category}`}</h2>
         ) : (
           <div className={styles.welcomeContainer}>
-            <img src={welcomeImage} alt="Bienvenido a InnovaTech" className={styles.welcomeImage} />
+            <img src={welcomeImage} alt="Bienvenido a InnovaTech" className={ styles.welcomeImage} />
           </div>
         )}
         <p></p>
@@ -78,7 +76,7 @@ const User = () => {
                 <h3>{product.name}</h3>
                 <p>Category: {product.category}</p>
                 <p>Price: ${product.price}</p>
-                <button className={styles.addToCartButton} onClick={(e) => { e.stopPropagation(); addToCart(product.id); }}>
+                <button className={styles.addToCartButton} onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
                   Add to Cart
                 </button>
               </div>
@@ -100,6 +98,10 @@ const User = () => {
               </button>
             </div>
           </div>
+        )}
+
+        {showCart && (
+          <Cart items={cartItems} onClose={closeCart} />
         )}
 
       </main>
