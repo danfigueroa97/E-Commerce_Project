@@ -38,7 +38,7 @@ public class ProductService implements IProductService{
             productUpdate.setImage(productUpdate.getImage());
             productUpdate.setDescription(product.getDescription());
             productUpdate.setDate(product.getDate());
-            
+
 
             return productRepository.save(productUpdate);
         } else {

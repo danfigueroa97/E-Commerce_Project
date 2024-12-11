@@ -94,7 +94,7 @@ const Admin = () => {
   };
 
   return (
-    <div>
+    <div >
       <h1>Product Management</h1>
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Cancel" : "Create New Product"}
@@ -163,25 +163,25 @@ const Admin = () => {
 
       <h2>Product List</h2>
       <ul>
-  {products.map((product) => (
-    <li key={product.id}>
-      <img src={product.image} alt={product.name} />
-      <div className="product-data">
-        <span><strong>Category:</strong> {product.category}</span>
-        <span><strong>Stock:</strong> {product.stock}</span>
-        <span><strong>Price:</strong> ${product.price}</span>
-        <span><strong>Date:</strong> {product.date}</span>
-      </div>
-      <div className="product-description">
-        <span><strong>Description:</strong> {product.description}</span>
-      </div>
-      <div className="product-actions">
-        <button onClick={() => handleEdit(product)}>Edit</button>
-        <button onClick={() => handleDelete(product.id)}>Delete</button>
-      </div>
-    </li>
-  ))}
-</ul>
+          {products.map((product) => (
+            <li key={product.id}>
+              <img src={product.image} alt={product.name} />
+              <div className="product-data">
+                <span><strong>Category:</strong> {product.category}</span>
+                <span><strong>Stock:</strong> {product.stock}</span>
+                <span><strong>Price:</strong> ${product.price}</span>
+                <span><strong>Date:</strong> {product.date}</span>
+              </div>
+              <div className="product-description">
+                <span><strong>Description:</strong> {product.description}</span>
+              </div>
+              <div className="product-actions">
+                <button onClick={() => handleEdit(product)}>Edit</button>
+                <button onClick={() => handleDelete(product.id)}>Delete</button>
+              </div>
+            </li>
+          ))}
+      </ul>
 
 
 
