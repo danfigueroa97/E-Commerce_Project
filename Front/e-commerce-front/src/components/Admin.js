@@ -184,8 +184,8 @@ const Admin = () => {
       {/* Mostrar botones de pestañas */}
       {currentTab === '' && (
         <div className={styles.tabs}>
-          <button onClick={() => handleTabClick('crud1')} className={styles.tabButton}>CRUD 1: Products</button>
-          <button onClick={() => handleTabClick('crud2')} className={styles.tabButton}>CRUD 2: Users</button>
+          <button onClick={() => handleTabClick('crud1')} className={styles.tabButton}>Products</button>
+          <button onClick={() => handleTabClick('crud2')} className={styles.tabButton}>Users</button>
         </div>
       )}
 
