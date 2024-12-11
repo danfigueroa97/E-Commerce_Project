@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Cart from './Cart';
 import axios from 'axios';
-import styles from '../styles/User.module.css'; // Importa las clases como un objeto
+import styles from '../styles/User.module.css';
 
 const User = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
-  const [showCart, setShowCart] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null); // Estado para el producto seleccionado
-  const [cartItems, setCartItems] = useState([]); // Estado para los productos en el carrito
+  const [currentView, setCurrentView] = useState("welcome");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
   const welcomeImage = '/fondo.png';
 
   const fetchProductsByCategory = (category) => {
@@ -16,94 +16,73 @@ const User = () => {
       .then((response) => {
         setProducts(response.data);
         setCategory(category);
+        setCurrentView("category");
       })
-      .catch((error) => console.error("Error fetching products by category:", error));
+      .catch((error) => console.error("Error fetching products:", error));
   };
 
   const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]); // Añadir el producto al carrito
+    setCartItems((prevItems) => [...prevItems, product]);
     alert("Producto añadido al carrito");
   };
 
-  const closeCart = () => {
-    setShowCart(false);
+  const removeFromCart = (productIndex) => {
+    setCartItems((prevItems) => prevItems.filter((_, index) => index !== productIndex));
   };
 
-  const viewProductDetails = (product) => {
-    setSelectedProduct(product); // Establecer el producto seleccionado
-  };
-
-  const closeProductDetails = () => {
-    setSelectedProduct(null); // Limpiar el producto seleccionado
-  };
+  const viewProductDetails = (product) => setSelectedProduct(product);
+  const closeProductDetails = () => setSelectedProduct(null);
+  const goToCart = () => setCurrentView("cart");
 
   return (
     <div className={styles.userPage}>
       <header className={styles.header}>
         <h1 className={styles.siteName}>InnovaTech</h1>
         <nav className={styles.navBar}>
-          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Computador")}>
-            Computers
-          </button>
-          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Celular")}>
-            Cellphones
-          </button>
-          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Accesorio")}>
-            Accessories
-          </button>
+          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Computador")}>Computers</button>
+          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Celular")}>Cellphones</button>
+          <button className={styles.navButton} onClick={() => fetchProductsByCategory("Accesorio")}>Accessories</button>
         </nav>
-        <button className={styles.cartButton} onClick={() => setShowCart(true)}>
-          Cart
-          <span className={styles.cartIcon}>🛒</span>
+        <button className={styles.cartButton} onClick={goToCart}>
+          Cart <span className={styles.cartIcon}>🛒</span>
         </button>
       </header>
 
       <main className={styles.mainContent}>
-        {category ? (
-          <h2>{`Productos de ${category}`}</h2>
-        ) : (
+        {currentView === "welcome" && (
           <div className={styles.welcomeContainer}>
-            <img src={welcomeImage} alt="Bienvenido a InnovaTech" className={ styles.welcomeImage} />
+            <img src={welcomeImage} alt="Bienvenido" className={styles.welcomeImage} />
           </div>
         )}
-        <p></p>
 
-        <div className={styles.productList}>
-          {products.length > 0 ? (
-            products.map((product) => (
-              <div key={product.id} className={styles.productItem} onClick={() => viewProductDetails(product)}>
-                <img src={product.image} alt={product.name} width={100} />
-                <h3>{product.name}</h3>
-                <p>Category: {product.category}</p>
-                <p>Price: ${product.price}</p>
-                <button className={styles.addToCartButton} onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
-                  Add to Cart
-                </button>
-              </div>
-            ))
-          ) : (
-            <p></p>
-          )}
-        </div>
-
-        {selectedProduct && (
-          <div className={styles.productDetails}>
-            <img src={selectedProduct.image} alt={selectedProduct.name} className={styles.productDetailImage} />
-            <div className={styles.productDetailsContent}>
-              <h2>{selectedProduct.name}</h2>
-              <p>Price: ${selectedProduct.price}</p>
-              <p>Description: {selectedProduct.description}</p>
-              <button className={styles.closeButton} onClick={closeProductDetails}>
-                Cerrar
-              </button>
+        {currentView === "category" && (
+          <>
+            <h2>{`Productos de ${category}`}</h2>
+            <div className={styles.productList}>
+              {products.map((product) => (
+                <div key={product.id} className={styles.productItem}>
+                  <img src={product.image} alt={product.name} width={100} />
+                  <h3>{product.name}</h3>
+                  <p>Precio: ${product.price}</p>
+                  <button
+                    className={styles.addToCartButton} // Conserva tu clase existente
+                    onClick={() => addToCart(product)}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              ))}
             </div>
-          </div>
+          </>
         )}
 
-        {showCart && (
-          <Cart items={cartItems} onClose={closeCart} />
+        {currentView === "cart" && (
+          <Cart
+            items={cartItems}
+            onRemoveItem={removeFromCart}
+            onClose={() => setCurrentView("welcome")}
+          />
         )}
-
       </main>
     </div>
   );
