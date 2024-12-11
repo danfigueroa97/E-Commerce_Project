@@ -1,10 +1,13 @@
+// User.js
 import React, { useState } from 'react';
+import Cart from './Cart'; // Ajusta la ruta según tu estructura de archivos
 import axios from 'axios';
 import '../styles/User.css';
 
 const User = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState(""); // Estado para la categoría seleccionada
+  const [showCart, setShowCart] = useState(false); // Estado para controlar la visibilidad del carrito
 
   // Función para obtener productos por categoría
   const fetchProductsByCategory = (category) => {
@@ -15,6 +18,21 @@ const User = () => {
         setCategory(category); // Actualizar la categoría seleccionada
       })
       .catch((error) => console.error("Error fetching products by category:", error));
+  };
+
+  // Agregar producto al carrito
+  const addToCart = (productId) => {
+    axios.post(`http://localhost:8080/cart/add/${productId}`)
+      .then(() => {
+        alert("Producto añadido al carrito");
+        setShowCart(true); // Asegúrate de que el carrito se muestre después de agregar un producto
+      })
+      .catch((error) => console.error("Error adding to cart:", error));
+  };
+
+  // Manejar la acción de cerrar el carrito
+  const closeCart = () => {
+    setShowCart(false);
   };
 
   return (
@@ -41,7 +59,9 @@ const User = () => {
             Accesorios
           </button>
         </nav>
-        <button className="cart-button">
+        <button className="cart-button" onClick={() => setShowCart(true)}>
+          View Cart
+          {showCart && <Cart onUpdateCart={(length) => console.log('Cart updated with length:', length)} closeCart={closeCart} />}
           Carrito
           <span className="cart-icon">🛒</span>
         </button>
@@ -60,6 +80,12 @@ const User = () => {
                 <h3>{product.name}</h3>
                 <p>Category: {product.category}</p>
                 <p>Price: ${product.price}</p>
+                <button
+                  className="add-to-cart-button"
+                  onClick={() => addToCart(product.id)}
+                >
+                  Add to Cart
+                </button>
               </div>
             ))
           ) : (
